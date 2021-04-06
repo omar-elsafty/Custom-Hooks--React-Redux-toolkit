@@ -12,7 +12,7 @@ let useSlice = (route, name) => {
   let { getAll, save: saveItem, remove: removeItem } = useAPi(route);
 
   let fetchAll = createAsyncThunk(
-    `${route}/fetchAll`,
+    `${name}/fetchAll`,
     async ({ route }, { getState }) => {
       let result = null;
       let { lastFetch } = getState()[name];
@@ -30,12 +30,12 @@ let useSlice = (route, name) => {
     }
   );
 
-  let save = createAsyncThunk(`${route}/save`, async ({ item, route }) => {
+  let save = createAsyncThunk(`${name}/save`, async ({ item, route }) => {
     let { data } = await saveItem(item, route); //to be checked
     return item;
   });
 
-  let remove = createAsyncThunk(`${route}remove`, async ({ id, route }) => {
+  let remove = createAsyncThunk(`${name}remove`, async ({ id, route }) => {
     await removeItem(id, route);
     return id;
   });
